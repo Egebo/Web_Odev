@@ -1,0 +1,28 @@
+﻿@model Web_Odev.Models.Randevu
+
+<h1>Yeni Randevu Ekle</h1>
+<form asp-action="Ekle" method="post">
+    <div class="mb-3">
+        <label for="Tarih" class="form-label">Tarih</label>
+        <input type="datetime-local" class="form-control" id="Tarih" name="Tarih" required />
+    </div>
+    <div class="mb-3">
+        <label for="Islem" class="form-label">İşlem</label>
+        <input type="text" class="form-control" id="Islem" name="Islem" required />
+    </div>
+    <div class="mb-3">
+        <label for="Ucret" class="form-label">Ücret</label>
+        <input type="number" class="form-control" id="Ucret" name="Ucret" required />
+    </div>
+    <div class="mb-3">
+        <label for="CalisanId" class="form-label">Çalışan</label>
+        <select class="form-select" id="CalisanId" name="CalisanId">
+            <option value="">Seçiniz</option>
+            @foreach (var calisan in ViewBag.Calisanlar)
+            {
+                <option value="@calisan.Id">@calisan.Ad</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+</form>

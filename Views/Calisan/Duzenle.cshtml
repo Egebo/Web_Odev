@@ -1,0 +1,26 @@
+﻿@model Web_Odev.Models.Calisan
+
+<h1>Çalışan Bilgilerini Düzenle</h1>
+<form asp-action="Duzenle" method="post">
+    <input type="hidden" name="Id" value="@Model.Id" />
+    <div class="mb-3">
+        <label for="Ad" class="form-label">Ad</label>
+        <input type="text" class="form-control" id="Ad" name="Ad" value="@Model.Ad" required />
+    </div>
+    <div class="mb-3">
+        <label for="Uzmanlik" class="form-label">Uzmanlık</label>
+        <input type="text" class="form-control" id="Uzmanlik" name="Uzmanlik" value="@Model.Uzmanlik" required />
+    </div>
+    <div class="mb-3">
+        <label for="KuaforId" class="form-label">Kuaför</label>
+        <select class="form-select" id="KuaforId" name="KuaforId">
+            @foreach (var kuafor in ViewBag.Kuaforler)
+            {
+                <option value="@kuafor.Id" selected="@(kuafor.Id == Model.KuaforId ? "selected" : null)">
+                    @kuafor.Ad
+                </option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Güncelle</button>
+</form>
