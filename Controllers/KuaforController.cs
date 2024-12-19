@@ -12,11 +12,5 @@ namespace Web_Odev.Controllers
         {
             _context = context;
         }
-
-        public IActionResult Index()
-        {
-            var kuaforler = _context.Kuaforler.ToList();
-            return View(kuaforler);
-        }
     }
 }

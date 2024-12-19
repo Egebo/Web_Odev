@@ -1,11 +1,17 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Web_Odev.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add DbContext to DI container
+// Veritabaný baðlantýsý
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Identity Hizmetlerini Ekle
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddControllersWithViews();
 
@@ -20,11 +26,11 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-app.UseAuthorization();
+app.UseAuthentication(); // Kimlik doðrulama
+app.UseAuthorization(); // Yetkilendirme
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Kuafor}/{action=Index}/{id?}");
-
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

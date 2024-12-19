@@ -12,12 +12,12 @@
     </div>
     <div class="mb-3">
         <label for="Ucret" class="form-label">Ücret</label>
-        <input type="number" class="form-control" id="Ucret" name="Ucret" required />
+        <input type="number" step="0.01" class="form-control" id="Ucret" name="Ucret" required />
     </div>
     <div class="mb-3">
         <label for="CalisanId" class="form-label">Çalışan</label>
         <select class="form-select" id="CalisanId" name="CalisanId">
-            <option value="">Seçiniz</option>
+            <option value="">Çalışan Seçin</option>
             @foreach (var calisan in ViewBag.Calisanlar)
             {
                 <option value="@calisan.Id">@calisan.Ad</option>
