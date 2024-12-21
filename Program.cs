@@ -4,19 +4,21 @@ using Web_Odev.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Veritabaný baðlantýsý
+// Add services to the container.
+builder.Services.AddControllersWithViews();
+
+// Add DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Identity Hizmetlerini Ekle
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
-
-builder.Services.AddControllersWithViews();
+// Add Identity
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 
 var app = builder.Build();
 
+// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -25,12 +27,19 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseRouting();
-app.UseAuthentication(); // Kimlik doðrulama
-app.UseAuthorization(); // Yetkilendirme
 
+app.UseRouting();
+
+// Authentication and Authorization
+app.UseAuthentication();
+app.UseAuthorization();
+
+// Default route
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+// Map Razor Pages for Identity UI
+app.MapRazorPages();
 
 app.Run();
