@@ -1,49 +1,40 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Web_Odev.Data;
 using Web_Odev.Models;
 
-[Authorize(Roles = "Admin")]
-public class CalisanController : Controller
+namespace Web_Odev.Controllers
 {
-    private readonly ApplicationDbContext _context;
-
-    public CalisanController(ApplicationDbContext context)
+    public class CalisanController : Controller
     {
-        _context = context;
-    }
+        private readonly ApplicationDbContext _context;
 
-    public IActionResult Index()
-    {
-        var calisanlar = _context.Calisanlar.ToList();
-        return View(calisanlar);
-    }
-
-    public IActionResult Ekle()
-    {
-        return View();
-    }
-
-    [HttpPost]
-    public IActionResult Ekle(Calisan calisan)
-    {
-        if (ModelState.IsValid)
+        public CalisanController(ApplicationDbContext context)
         {
-            _context.Calisanlar.Add(calisan);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
+            _context = context;
         }
-        return View(calisan);
-    }
 
-    public IActionResult Sil(int id)
-    {
-        var calisan = _context.Calisanlar.Find(id);
-        if (calisan != null)
+        public IActionResult Index()
         {
-            _context.Calisanlar.Remove(calisan);
-            _context.SaveChanges();
+            // Veritabanından çalışanları çek ve View'a gönder
+            var calisanlar = _context.Calisanlar.ToList();
+            return View(calisanlar);
         }
-        return RedirectToAction("Index");
+
+        public IActionResult Ekle()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Ekle(Calisan calisan)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Calisanlar.Add(calisan);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(calisan);
+        }
     }
 }
