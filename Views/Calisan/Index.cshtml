@@ -7,6 +7,7 @@
         <tr>
             <th>Ad</th>
             <th>Uzmanlık</th>
+            <th>İşlemler</th>
         </tr>
     </thead>
     <tbody>
@@ -15,6 +16,13 @@
             <tr>
                 <td>@calisan.Ad</td>
                 <td>@calisan.Uzmanlik</td>
+                <td>
+                    <a asp-controller="Calisan" asp-action="Duzenle" asp-route-id="@calisan.Id" class="btn btn-warning btn-sm">Düzenle</a>
+                    <form asp-controller="Calisan" asp-action="Sil" method="post" style="display:inline;">
+                        <input type="hidden" name="id" value="@calisan.Id" />
+                        <button type="submit" class="btn btn-danger btn-sm">Sil</button>
+                    </form>
+                </td>
             </tr>
         }
     </tbody>

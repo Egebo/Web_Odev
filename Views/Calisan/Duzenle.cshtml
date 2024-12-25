@@ -1,15 +1,20 @@
 ﻿@model Web_Odev.Models.Calisan
 
-<h1>Çalışan Bilgilerini Düzenle</h1>
+<h1>Çalışan Düzenle</h1>
+
 <form asp-action="Duzenle" method="post">
-    <input type="hidden" name="Id" value="@Model.Id" />
+    <input type="hidden" asp-for="Id" />
     <div class="mb-3">
         <label for="Ad" class="form-label">Ad</label>
-        <input type="text" class="form-control" id="Ad" name="Ad" value="@Model.Ad" required />
+        <input asp-for="Ad" class="form-control" id="Ad" />
+        <span asp-validation-for="Ad" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label for="Uzmanlik" class="form-label">Uzmanlık</label>
-        <input type="text" class="form-control" id="Uzmanlik" name="Uzmanlik" value="@Model.Uzmanlik" required />
+        <input asp-for="Uzmanlik" class="form-control" id="Uzmanlik" />
+        <span asp-validation-for="Uzmanlik" class="text-danger"></span>
     </div>
-    <button type="submit" class="btn btn-primary">Güncelle</button>
+    <button type="submit" class="btn btn-success">Kaydet</button>
 </form>
+
+<a asp-action="Index" class="btn btn-secondary">Geri Dön</a>

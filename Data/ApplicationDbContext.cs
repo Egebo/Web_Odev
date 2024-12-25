@@ -11,6 +11,8 @@ namespace Web_Odev.Data
 
         public DbSet<Calisan> Calisanlar { get; set; }
         public DbSet<Randevu> Randevular { get; set; }
+        public DbSet<Hizmet> Hizmetler { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

@@ -1,28 +1,33 @@
 ﻿@model Web_Odev.Models.Randevu
 
-<h1>Yeni Randevu Ekle</h1>
+<h1>Randevu Al</h1>
+
 <form asp-action="Ekle" method="post">
     <div class="mb-3">
-        <label for="Tarih" class="form-label">Tarih</label>
-        <input type="datetime-local" class="form-control" id="Tarih" name="Tarih" required />
+        <label for="MusteriAd" class="form-label">Adınız</label>
+        <input asp-for="MusteriAd" class="form-control" id="MusteriAd" required />
     </div>
     <div class="mb-3">
-        <label for="Islem" class="form-label">İşlem</label>
-        <input type="text" class="form-control" id="Islem" name="Islem" required />
+        <label for="MusteriEmail" class="form-label">E-posta</label>
+        <input asp-for="MusteriEmail" class="form-control" id="MusteriEmail" required />
     </div>
     <div class="mb-3">
-        <label for="Ucret" class="form-label">Ücret</label>
-        <input type="number" step="0.01" class="form-control" id="Ucret" name="Ucret" required />
-    </div>
-    <div class="mb-3">
-        <label for="CalisanId" class="form-label">Çalışan</label>
-        <select class="form-select" id="CalisanId" name="CalisanId">
-            <option value="">Çalışan Seçin</option>
-            @foreach (var calisan in ViewBag.Calisanlar)
-            {
-                <option value="@calisan.Id">@calisan.Ad</option>
-            }
+        <label for="CalisanId" class="form-label">Çalışan Seçin</label>
+        <select asp-for="CalisanId" asp-items="@(new SelectList(ViewBag.Calisanlar, "Id", "Ad"))" class="form-control">
+            <option value="">Bir çalışan seçin</option>
         </select>
     </div>
-    <button type="submit" class="btn btn-primary">Kaydet</button>
+    <div class="mb-3">
+        <label for="Hizmet" class="form-label">Hizmet</label>
+        <input asp-for="Hizmet" class="form-control" id="Hizmet" required />
+    </div>
+    <div class="mb-3">
+        <label for="Tarih" class="form-label">Tarih</label>
+        <input asp-for="Tarih" type="date" class="form-control" id="Tarih" required />
+    </div>
+    <div class="mb-3">
+        <label for="Saat" class="form-label">Saat</label>
+        <input asp-for="Saat" type="time" class="form-control" id="Saat" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Randevu Al</button>
 </form>
