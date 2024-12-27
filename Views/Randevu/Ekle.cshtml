@@ -1,0 +1,33 @@
+﻿@model Web_Odev.Models.Randevu
+
+<h1>Randevu Al</h1>
+
+<form asp-action="Ekle" method="post">
+    <div class="mb-3">
+        <label for="MusteriAd" class="form-label">Adınız</label>
+        <input asp-for="MusteriAd" class="form-control" id="MusteriAd" required />
+    </div>
+    <div class="mb-3">
+        <label for="MusteriEmail" class="form-label">E-posta</label>
+        <input asp-for="MusteriEmail" class="form-control" id="MusteriEmail" required />
+    </div>
+    <div class="mb-3">
+        <label for="CalisanId" class="form-label">Çalışan Seçin</label>
+        <select asp-for="CalisanId" asp-items="@(new SelectList(ViewBag.Calisanlar, "Id", "Ad"))" class="form-control">
+            <option value="">Bir çalışan seçin</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="Hizmet" class="form-label">Hizmet</label>
+        <input asp-for="Hizmet" class="form-control" id="Hizmet" required />
+    </div>
+    <div class="mb-3">
+        <label for="Tarih" class="form-label">Tarih</label>
+        <input asp-for="Tarih" type="date" class="form-control" id="Tarih" required />
+    </div>
+    <div class="mb-3">
+        <label for="Saat" class="form-label">Saat</label>
+        <input asp-for="Saat" type="time" class="form-control" id="Saat" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Randevu Al</button>
+</form>
