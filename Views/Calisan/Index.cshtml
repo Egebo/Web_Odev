@@ -1,31 +1,23 @@
-﻿@model Web_Odev.Models.Kuaför
+﻿@model IEnumerable<Web_Odev.Models.Calisan>
 
-@{
-    ViewData["Title"] = "Kuaför Bilgileri";
-}
+<h1>Çalışan Listesi</h1>
 
-<h1>Kuaför Bilgileri</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Ad</th>
+            <th>Uzmanlık</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var calisan in Model)
+        {
+            <tr>
+                <td>@calisan.Ad</td>
+                <td>@calisan.Uzmanlik</td>
+            </tr>
+        }
+    </tbody>
+</table>
 
-@if (Model != null)
-{
-    <table class="table">
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.Ad)</th>
-            <td>@Html.DisplayFor(model => model.Ad)</td>
-        </tr>
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.Adres)</th>
-            <td>@Html.DisplayFor(model => model.Adres)</td>
-        </tr>
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.CalismaSaatleri)</th>
-            <td>@Html.DisplayFor(model => model.CalismaSaatleri)</td>
-        </tr>
-    </table>
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Düzenle</a>
-}
-else
-{
-    <p>Kuaför bilgisi bulunamadı.</p>
-    <a asp-action="Create" class="btn btn-primary">Kuaför Bilgisi Ekle</a>
-}
+<a asp-controller="Calisan" asp-action="Ekle" class="btn btn-primary">Yeni Çalışan Ekle</a>
