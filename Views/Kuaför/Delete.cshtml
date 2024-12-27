@@ -1,0 +1,37 @@
+﻿@model Web_Odev.Models.Kuaför
+
+@{
+    ViewData["Title"] = "Kuaför Sil";
+}
+
+<h1>Kuaför Sil</h1>
+
+<h3>Bu kaydı silmek istediğinizden emin misiniz?</h3>
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Ad)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Ad)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Adres)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Adres)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CalismaSaatleri)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CalismaSaatleri)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Sil" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-secondary">Geri Dön</a>
+    </form>
+</div>

@@ -1,0 +1,28 @@
+﻿@model Web_Odev.Models.Hizmet
+
+@{
+    ViewData["Title"] = "Hizmet Detayları";
+}
+
+<h1>Hizmet Detayları</h1>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Ad)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Ad)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Ucret)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Ucret)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning">Düzenle</a> |
+    <a asp-action="Index" class="btn btn-secondary">Geri Dön</a>
+</div>
