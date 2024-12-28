@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "AI Model Input";
+}
+
+<h2>AI Model Input</h2>
+
+<form asp-action="GenerateImage" method="post">
+    <div>
+        <label for="modelInput">Enter your model input:</label>
+        <input type="text" id="modelInput" name="modelInput" required />
+    </div>
+    <button type="submit">Generate Image</button>
+</form>

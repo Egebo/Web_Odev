@@ -1,19 +1,20 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Web_Odev.Data;
+using Web_Odev.Services;  // AiApiService namespace'ini ekleyin
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-//HttpClient ekleme
+// HttpClient ekleme
 builder.Services.AddHttpClient("ApiClient", client =>
 {
     client.BaseAddress = new Uri(builder.Configuration["ApiSettings:BaseUrl"]);
 });
 
-
+builder.Services.AddScoped<ReplicateService>();
 
 // Add DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>

@@ -6,26 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Web_Odev.Migrations
 {
     /// <inheritdoc />
-    public partial class AddIdentity : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Calisanlar_Kuaforler_KuaforId",
-                table: "Calisanlar");
-
-            migrationBuilder.DropTable(
-                name: "Kuaforler");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Calisanlar_KuaforId",
-                table: "Calisanlar");
-
-            migrationBuilder.DropColumn(
-                name: "KuaforId",
-                table: "Calisanlar");
-
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -63,6 +48,20 @@ namespace Web_Odev.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Calisanlar",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Ad = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Uzmanlik = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Calisanlar", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -111,8 +110,8 @@ namespace Web_Odev.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -156,8 +155,8 @@ namespace Web_Odev.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -167,6 +166,28 @@ namespace Web_Odev.Migrations
                         name: "FK_AspNetUserTokens_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Randevular",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Tarih = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Islem = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Ucret = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
+                    CalisanId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Randevular", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Randevular_Calisanlar_CalisanId",
+                        column: x => x.CalisanId,
+                        principalTable: "Calisanlar",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -209,6 +230,11 @@ namespace Web_Odev.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Randevular_CalisanId",
+                table: "Randevular",
+                column: "CalisanId");
         }
 
         /// <inheritdoc />
@@ -230,42 +256,16 @@ namespace Web_Odev.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Randevular");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
-            migrationBuilder.AddColumn<int>(
-                name: "KuaforId",
-                table: "Calisanlar",
-                type: "int",
-                nullable: true);
-
-            migrationBuilder.CreateTable(
-                name: "Kuaforler",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Ad = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Adres = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Kuaforler", x => x.Id);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Calisanlar_KuaforId",
-                table: "Calisanlar",
-                column: "KuaforId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Calisanlar_Kuaforler_KuaforId",
-                table: "Calisanlar",
-                column: "KuaforId",
-                principalTable: "Kuaforler",
-                principalColumn: "Id");
+            migrationBuilder.DropTable(
+                name: "Calisanlar");
         }
     }
 }

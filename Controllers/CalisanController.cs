@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Web_Odev.Data;
 using Web_Odev.Models;
 
 namespace Web_Odev.Controllers
 {
+    [Authorize(Roles = "Customer,Admin")]
     public class CalisanController : Controller
     {
         private readonly ApplicationDbContext _context;
